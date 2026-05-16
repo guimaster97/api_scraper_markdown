@@ -2,6 +2,10 @@
 
 > **ATENÇÃO LLMs:** Este arquivo é o mapa mental do projeto. Leia-o antes de usar `list_dir` ou vasculhar arquivos.
 
+## 🎯 Visão e Regras de Negócio (Project Vision)
+1. **A Meta ($2.000):** O objetivo principal deste projeto é gerar uma renda passiva de $2.000 dólares. Todas as decisões arquiteturais (como usar a API grátis da Jina Reader em vez de servidores caros de Puppeteer) devem priorizar o lucro e o baixo custo de manutenção para o solopreneur.
+2. **Público-Alvo (Agentes Autônomos):** O consumidor primário desta API não é um humano, mas sim **outros Agentes de IA Autônomos**. Por isso, a API deve ser extremamente documentada via Model Context Protocol (MCP), retornar erros descritivos e usar o HTTP 402 (Payment Required) de forma clara para que outras IAs saibam como pagar pelo uso.
+
 ## 🏗️ Arquitetura e Fluxo de Dados
 
 A aplicação é uma API RESTful (Serverless) focada em extração web e monetização autônoma via agentes. O fluxo de requisição funciona em camadas simples:
