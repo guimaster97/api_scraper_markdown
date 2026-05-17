@@ -1,6 +1,9 @@
 {
   "name": "api_scraper_markdown", 
   "type": "module",
+  "bin": {
+    "api_scraper_markdown": "bin/cli.js"
+  },
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify",

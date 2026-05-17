@@ -18,8 +18,11 @@ app.post('/', async (c) => {
     const result = await scraper.scrape(url);
     
     return c.json({
-      success: true,
-      data: result
+      markdown: result.content,
+      metadata: {
+        title: result.title,
+        url: result.url
+      }
     });
   } catch (error: any) {
     return c.json({

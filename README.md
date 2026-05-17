@@ -8,6 +8,12 @@ This is a serverless Web Scraper API built with Node.js and Hono, deployed to Cl
 - **File Map:** Always read `CODEBASE.md` to understand file dependencies and system routing before modifying code.
 - **Session Memory:** Always read and update `STATE.md` at the beginning and end of each session to maintain context across chats.
 
+## 📦 Installation & Usage
+This is a remote Serverless API, but you can use `npx` to test the connection and get the endpoint details for your MCP client (like Claude Desktop or Cursor):
+```bash
+npx api_scraper_markdown
+```
+
 ## 📡 API Specification
 
 ### 1. `GET /mcp/manifest` (Discovery)

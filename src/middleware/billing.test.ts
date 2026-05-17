@@ -26,6 +26,7 @@ describe('http402Billing Middleware', () => {
       env: { PAYMENT_API_KEY: 'test_key' },
       json: vi.fn().mockImplementation((data, status) => ({ data, status })),
       req: { header: vi.fn().mockReturnValue(null) },
+      executionCtx: { waitUntil: vi.fn() },
     } as unknown as Context;
 
     const next = vi.fn();
@@ -43,6 +44,7 @@ describe('http402Billing Middleware', () => {
       env: { PAYMENT_API_KEY: 'test_key' },
       req: { header: vi.fn().mockReturnValue('Bearer dodo_test_token') },
       res: { headers: { set: vi.fn() } },
+      executionCtx: { waitUntil: vi.fn() },
     } as unknown as Context;
 
     const next = vi.fn();

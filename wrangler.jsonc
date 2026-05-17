@@ -2,13 +2,13 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "api_scraper_markdown",
   "main": "src/index.ts",
-  "compatibility_date": "2026-05-10"
+  "compatibility_date": "2026-05-10",
   // "compatibility_flags": [
   //   "nodejs_compat"
   // ],
-  // "vars": {
-  //   "MY_VAR": "my-variable"
-  // },
+  "vars": {
+    "AXIOM_DATASET": "api_scraper_logs"
+  },
   // "kv_namespaces": [
   //   {
   //     "binding": "MY_KV_NAMESPACE",

@@ -3,6 +3,8 @@ import { Context, Next } from 'hono';
 export type CloudflareBindings = {
   PAYMENT_API_KEY: string;
   COST_PER_REQUEST?: string;
+  AXIOM_TOKEN?: string;
+  AXIOM_DATASET?: string;
 };
 
 /**
@@ -35,7 +37,27 @@ export const http402Billing = () => {
      */
     const isValidPayment = authHeader && (authHeader.startsWith('Bearer dodo_') || authHeader.startsWith('Bearer test_'));
 
+    const sendAxiomLog = async (event: any) => {
+      // Fallback local sempre faz o log
+      console.log(JSON.stringify(event));
+      if (c.env?.AXIOM_TOKEN && c.env?.AXIOM_DATASET) {
+        try {
+          await fetch(`https://api.axiom.co/v1/datasets/${c.env.AXIOM_DATASET}/ingest`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${c.env.AXIOM_TOKEN}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify([event])
+          });
+        } catch (e) {
+          console.error('Failed to send Axiom log', e);
+        }
+      }
+    };
+
     if (!isValidPayment) {
+      c.executionCtx.waitUntil(sendAxiomLog({ level: 'info', type: 'payment_blocked', url: c.req.url, ip: c.req.header('cf-connecting-ip') }));
       return c.json({
         error: 'Payment Required',
         message: 'This API requires a valid Dodo Payments token.',
@@ -48,6 +70,8 @@ export const http402Billing = () => {
         }
       }, 402);
     }
+
+    c.executionCtx.waitUntil(sendAxiomLog({ level: 'info', type: 'payment_success', url: c.req.url, ip: c.req.header('cf-connecting-ip') }));
 
     // Adiciona metadados de custo na resposta bem-sucedida
     c.res.headers.set('X-Cost', costPerRequest.toString());
