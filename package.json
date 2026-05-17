@@ -1,5 +1,7 @@
 {
   "name": "api_scraper_markdown", 
+  "version": "1.0.0",
+  "description": "Markdown Web Scraper API for Autonomous Agents",
   "type": "module",
   "bin": {
     "api_scraper_markdown": "bin/cli.js"
