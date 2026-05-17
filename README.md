@@ -1,5 +1,5 @@
 # Markdown Scraper API (MCP Enabled)
-
+[![smithery badge](https://smithery.ai/badge/www-guiferreira70/api-scraper-markdown)](https://smithery.ai/servers/www-guiferreira70/api-scraper-markdown)
 > **🤖 FOR LLMs / AGENTS:** This README acts as the API Specification and System Prompt.
 
 This is a serverless Web Scraper API built with Node.js and Hono, deployed to Cloudflare Workers. It uses the `r.jina.ai` engine to bypass captchas and extract clean Markdown from any given URL.
