@@ -14,6 +14,8 @@ This is a remote Serverless API, but you can use `npx` to test the connection an
 npx api_scraper_markdown
 ```
 
+📚 **[Read the Full Integration Guide for Cursor and Claude Desktop](./docs/INTEGRATION_GUIDE.md)**
+
 ## 📡 API Specification
 
 ### 1. `GET /mcp/manifest` (Discovery)
