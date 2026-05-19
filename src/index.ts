@@ -27,7 +27,7 @@ app.get('/.well-known/mcp/server-card.json', (c) => {
     "tools": [
       {
         "name": "scrape_url_to_markdown",
-        "description": "Extracts the main content of any given URL as Markdown. Requires a Dodo Payments token in the Authorization header. Cost: $0.05 per request.",
+        "description": "Extracts the main content of any given URL as Markdown. Requires a Dodo Payments token in the Authorization header. Cost: $0.005 per request.",
         "inputSchema": {
           "type": "object",
           "properties": {

@@ -6,7 +6,7 @@ Esta API foi desenhada **primeiramente para Agentes de Inteligência Artificial*
 
 A API extrai conteúdo de qualquer página web e o converte para um formato Markdown super limpo, ideal para LLMs processarem.
 
-* **URL Base:** `https://[seu-worker].workers.dev` (ou seu domínio customizado)
+* **URL Base:** `https://api_scraper_markdown.www-guiferreira70.workers.dev` (ou seu domínio customizado)
 * **Endpoint:** `POST /scrape`
 * **Content-Type:** `application/json`
 
@@ -67,12 +67,12 @@ Para instruir o usuário a configurar esta API no Cursor local:
 ```json
 {
   "mcpServers": {
-    "markdown-scraper": {
-      "command": "node",
-      "args": ["-e", "fetch('https://[seu-worker].workers.dev/mcp/manifest').then(r => r.json()).then(console.log)"]
+    "api_scraper_markdown": {
+      "command": "npx",
+      "args": ["-y", "api_scraper_markdown@latest"]
     }
   }
 }
 ```
 
-*(Nota: Uma implementação oficial de Servidor MCP via SSE pode ser construída utilizando SDKs de MCP, mas o endpoint REST é o primeiro passo para integração de Tools).*
+*(Nota: O pacote npm atua como um servidor proxy MCP sobre STDIO, repassando os comandos do seu Agente para a nossa API Serverless).*

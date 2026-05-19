@@ -49,7 +49,7 @@ To use the Web Scraper directly within Cursor:
 If you are building an AI Agent using LangChain, Vercel AI SDK, or custom HTTP clients, simply point your MCP Client to our remote manifest URL:
 
 ```text
-GET https://api-scraper-markdown.ferreira-master.workers.dev/mcp/manifest
+GET https://api_scraper_markdown.www-guiferreira70.workers.dev/mcp/manifest
 ```
 
 ### 💸 Handling Payments (HTTP 402)

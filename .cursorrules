@@ -1,0 +1,25 @@
+# Markdown Scraper API - Agent Rules
+
+## 1. Regra de Ouro (Lucratividade e Autonomia)
+Este projeto é um serviço monetizado via API voltado **exclusivamente para outros Agentes Autônomos de IA**, não para humanos. 
+A meta é gerar $2.000 em renda passiva. Todas as decisões de arquitetura e código devem ter prioridade absoluta em:
+- Manter o custo de infraestrutura próximo a zero (Serverless, Cloudflare Workers).
+- Fazer a correta cobrança via protocolo HTTP 402 (Payment Required).
+
+## 2. Padrão de Inicialização ("Start & Go")
+Sempre que uma nova sessão for iniciada:
+1. **LEIA O ARQUIVO `STATE.md` PRIMEIRO**.
+2. Vá direto para a seção `🎯 TAREFA ATUAL ATIVA`.
+3. Execute a tarefa descrita sem pedir grandes re-contextualizações.
+4. Após terminar a tarefa, atualize o `STATE.md`, puxando o próximo item do `🛣️ ROADMAP DE LUCRATIVIDADE` para a Tarefa Atual Ativa.
+
+## 3. Arquitetura e Regras de Código
+- **Scraping:** Nós não usamos instâncias nativas de Puppeteer. O trabalho pesado é delegado à API da Jina Reader (`r.jina.ai`) para obtermos Markdown limpo.
+- **Monetização:** O middleware de cobrança fica em `src/middleware/billing.ts`. Nenhuma rota protegida pode pular o gatekeeper do HTTP 402. O gateway de pagamento é a Dodo Payments.
+- **Integração MCP (Proxy):** O arquivo `bin/cli.js` é o servidor STDIO para que o Cursor e Claude Desktop conectem na ferramenta. Ele traduz requisições locais para a nossa API na Cloudflare e mapeia erros 402 nativamente de volta para a IA cliente.
+- **Observabilidade:** Os logs cruciais de negócio (200 OK vs 402 Blocked) são enviados para o Axiom em background (waitUntil).
+
+## 4. Otimização de Sessões
+- O desenvolvedor faz **sessões curtas** para economizar tokens.
+- Seja direto ao ponto nas respostas.
+- Foque em escrever código ou alterar arquivos que avançam o projeto nas Fases de Distribuição e Marketing assim que a base de código estiver sólida.

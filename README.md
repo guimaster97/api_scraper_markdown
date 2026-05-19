@@ -4,9 +4,6 @@
 
 This is a serverless Web Scraper API built with Node.js and Hono, deployed to Cloudflare Workers. It uses the `r.jina.ai` engine to bypass captchas and extract clean Markdown from any given URL.
 
-## 🧠 System Architecture & Context Engineering
-- **File Map:** Always read `CODEBASE.md` to understand file dependencies and system routing before modifying code.
-- **Session Memory:** Always read and update `STATE.md` at the beginning and end of each session to maintain context across chats.
 
 ## 📦 Installation & Usage
 This is a remote Serverless API, but you can use `npx` to test the connection and get the endpoint details for your MCP client (like Claude Desktop or Cursor):
@@ -24,7 +21,8 @@ Returns the Model Context Protocol (MCP) JSON manifest. Use this to dynamically 
 ### 2. `POST /scrape` (Action)
 **Requires Authentication:** `Authorization: Bearer <token>`
 
-Este endpoint utiliza o protocolo **HTTP 402 Payment Required**. 
+Este endpoint utiliza o protocolo **HTTP 402 Payment Required** sob um modelo de **Micro-transações ($0.005 por request)**.
+A ideia é ser a forma mais rápida e barata de plugar capacidades de Web Scraping no seu Agente Autônomo sem nenhum setup de infraestrutura.
 - Se você não fornecer um token ou o token não tiver saldo, a API retornará um erro 402.
 - A resposta do erro 402 conterá uma `paymentUrl` (Dodo Payments) onde você pode adquirir créditos.
 - Após o pagamento, você receberá um token que deve ser enviado no header `Authorization`.

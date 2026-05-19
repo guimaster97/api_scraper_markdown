@@ -22,7 +22,7 @@ export const http402Billing = () => {
       }, 500);
     }
 
-    const costPerRequest = c.env?.COST_PER_REQUEST ? parseFloat(c.env.COST_PER_REQUEST) : 0.05;
+    const costPerRequest = c.env?.COST_PER_REQUEST ? parseFloat(c.env.COST_PER_REQUEST) : 0.005;
     const currency = 'USD';
     
     // TODO: Em produção, o paymentUrl pode vir dinamicamente via Dodo Payments SDK
@@ -57,7 +57,7 @@ export const http402Billing = () => {
     };
 
     if (!isValidPayment) {
-      c.executionCtx.waitUntil(sendAxiomLog({ level: 'info', type: 'payment_blocked', url: c.req.url, ip: c.req.header('cf-connecting-ip') }));
+      c.executionCtx.waitUntil(sendAxiomLog({ level: 'info', type: 'payment_blocked', url: c.req.url, ip: c.req.header('cf-connecting-ip'), has_auth: !!authHeader }));
       return c.json({
         error: 'Payment Required',
         message: 'This API requires a valid Dodo Payments token.',
