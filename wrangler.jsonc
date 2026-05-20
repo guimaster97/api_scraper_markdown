@@ -9,12 +9,12 @@
   "vars": {
     "AXIOM_DATASET": "api_scraper_logs"
   },
-  // "kv_namespaces": [
-  //   {
-  //     "binding": "MY_KV_NAMESPACE",
-  //     "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-  //   }
-  // ],
+  "kv_namespaces": [
+    {
+      "binding": "TRIAL_KV",
+      "id": "abb262eb47554c6bb6eb3ac66ae8ea00"
+    }
+  ],
   // "r2_buckets": [
   //   {
   //     "binding": "MY_BUCKET",

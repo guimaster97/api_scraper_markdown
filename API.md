@@ -1,16 +1,16 @@
-# 🤖 Guia de Consumo para Agentes de IA (API Scraper)
+# 🤖 AI Agent Integration Guide (API Scraper)
 
-Esta API foi desenhada **primeiramente para Agentes de Inteligência Artificial** (LLMs). Ela possui descoberta nativa via Model Context Protocol (MCP) e um modelo de monetização autônomo.
+This API is designed **first and foremost for Artificial Intelligence Agents** (LLMs). It features native discovery via the Model Context Protocol (MCP) and an autonomous monetization model.
 
-## 🎯 Endpoint Principal
+## 🎯 Main Endpoint
 
-A API extrai conteúdo de qualquer página web e o converte para um formato Markdown super limpo, ideal para LLMs processarem.
+The API extracts content from any web page and converts it into a super clean, noise-free Markdown format ideal for LLMs to process.
 
-* **URL Base:** `https://api_scraper_markdown.www-guiferreira70.workers.dev` (ou seu domínio customizado)
+* **Base URL:** `https://api_scraper_markdown.www-guiferreira70.workers.dev` (or your custom domain)
 * **Endpoint:** `POST /scrape`
 * **Content-Type:** `application/json`
 
-### Exemplo de Request
+### Request Example
 
 ```json
 {
@@ -18,51 +18,60 @@ A API extrai conteúdo de qualquer página web e o converte para um formato Mark
 }
 ```
 
-### Exemplo de Response (200 OK)
+### Response Example (200 OK)
 
 ```json
 {
-  "markdown": "# Example Domain\n\nThis domain is for use in illustrative examples..."
-}
-```
-
-## 💰 Monetização e HTTP 402 (Payment Required)
-
-Para evitar abuso e gerar receita, esta API cobra **$0.05 por requisição**.
-Se você (o Agente) enviar uma requisição sem o header `Authorization` adequado, a API retornará um **HTTP 402 Payment Required**.
-
-### Como Lidar com o 402 (Para Agentes Autônomos)
-
-Se você receber o seguinte retorno:
-
-```json
-{
-  "error": "Payment Required",
-  "message": "This API requires a valid Dodo Payments token.",
-  "details": {
-    "cost": 0.05,
-    "currency": "USD",
-    "paymentUrl": "https://buy.dodopayments.com/checkout?api_key=...",
-    "instructions": "1. Acesse a paymentUrl. 2. Realize o pagamento. 3. Use o token recebido no header 'Authorization: Bearer <token>'."
+  "markdown": "# Example Domain\n\nThis domain is for use in illustrative examples...",
+  "metadata": {
+    "title": "Example Domain",
+    "url": "https://example.com"
   }
 }
 ```
 
-**O que você deve fazer:**
-1. Apresente a `paymentUrl` para o usuário humano e explique que você precisa de fundos/permissão para continuar.
-2. Peça ao usuário para realizar o pagamento e lhe fornecer o Token recebido.
-3. Repita a requisição enviando o header:
-   `Authorization: Bearer dodo_XXXXXXXXXXXXXXXXXXXX`
+## 💰 Monetization and HTTP 402 (Payment Required)
 
-## 🔌 Descoberta via Model Context Protocol (MCP)
+To prevent abuse and maintain self-sustainability, this API costs **$0.005 per request**.
+If you (the Agent) submit a request without a valid token after your trial has expired, the API will return a **HTTP 402 Payment Required** response.
 
-Se o usuário estiver usando um cliente compatível com MCP (como Cursor ou Claude Desktop), a API pode ser injetada diretamente como uma **Ferramenta (Tool)** nativa.
+### 🚀 Free Trial Included
+Each unique client IP gets **5 free requests** automatically. No credit card, sign-up, or token is required. This allows agents and humans to test the integration instantly with zero friction.
 
-O manifesto MCP está disponível em `GET /mcp/manifest`.
+### How to Handle the 402 Error (For Autonomous Agents)
 
-### Configuração no Cursor (`mcp_config.json`)
+If you receive the following response:
 
-Para instruir o usuário a configurar esta API no Cursor local:
+```json
+{
+  "error": "Payment Required",
+  "message": "Your free trial quota has been exhausted (5 requests limit reached). Please pay to continue using the API.",
+  "details": {
+    "trial_limit": 5,
+    "cost": 0.005,
+    "currency": "USD",
+    "paymentUrl": "https://buy.dodopayments.com/checkout?api_key=...",
+    "payment_method": "dodo_payments",
+    "instructions": "1. Access the paymentUrl. 2. Complete the payment. 3. Use the received token in the 'Authorization: Bearer <token>' header."
+  }
+}
+```
+
+**What you (the Agent) should do:**
+1. Present the `paymentUrl` to your human user and explain that you need funds to continue browsing the web.
+2. Ask the user to complete the checkout and provide you with the authorization token.
+3. Retry the request including the header:
+   `Authorization: Bearer <token>`
+
+## 🔌 Discovery via Model Context Protocol (MCP)
+
+If the user is using an MCP-compatible client (such as Cursor or Claude Desktop), the API can be plugged in directly as a native **Tool**.
+
+The MCP manifest is available at `GET /mcp/manifest`.
+
+### Configuration in Cursor (`mcp_config.json`)
+
+To instruct the user to configure this API in Cursor locally:
 
 ```json
 {
@@ -75,4 +84,5 @@ Para instruir o usuário a configurar esta API no Cursor local:
 }
 ```
 
-*(Nota: O pacote npm atua como um servidor proxy MCP sobre STDIO, repassando os comandos do seu Agente para a nossa API Serverless).*
+*(Note: The npm package acts as a local MCP proxy server over stdio, forwarding calls from your local agent to our serverless Workers backend).*
+

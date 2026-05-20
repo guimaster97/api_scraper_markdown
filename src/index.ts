@@ -2,11 +2,13 @@ import { Hono } from 'hono';
 import { http402Billing, CloudflareBindings } from './middleware/billing';
 import scrapeRoute from './routes/scrape';
 import mcpRoute from './routes/mcp';
+import webhookRoute from './routes/webhook';
 
 const app = new Hono<{ Bindings: CloudflareBindings }>();
 
-// Rotas públicas (Descoberta)
+// Rotas públicas (Descoberta e Webhooks)
 app.route('/mcp', mcpRoute);
+app.route('/webhook', webhookRoute);
 
 // Rotas protegidas (Monetização)
 app.use('/scrape/*', http402Billing());

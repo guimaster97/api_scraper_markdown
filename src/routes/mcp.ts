@@ -31,7 +31,7 @@ app.get('/manifest', (c) => {
         method: 'POST',
         authentication: {
           type: 'http-402',
-          description: 'Payment required via HTTP 402. Cost is $0.05 USD per request. Provide token in Authorization: Bearer <token>',
+          description: 'Payment required via HTTP 402. Cost is $0.005 USD per request. Provide token in Authorization: Bearer <token>',
           paymentUrl: 'https://buy.dodopayments.com/checkout'
         }
       }
